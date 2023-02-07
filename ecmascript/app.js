@@ -1,6 +1,6 @@
 //JSONs ENCURTADOS E OPERADOR SPREAD
 
-/*var empresa = {
+/*  empresa = {
     nome: "IPQ",
     email: "ipq@gmail.com",
     cidade: "Salvador-BA",
