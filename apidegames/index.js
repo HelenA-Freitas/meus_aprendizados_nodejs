@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
+
+app.use(cors());
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -85,7 +88,7 @@ app.put("/game/:id", (req,res) => {
             res.sendStatus(404);
         }else{
             
-            const {title=false, year=false, price=false} = req.body;
+            let {title=false, year=false, price=false} = req.body;
             
             if(!title){
                 game.title = title;
