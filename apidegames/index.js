@@ -28,6 +28,20 @@ var db = {
             year: 2012,
             price: 20
         }
+    ],
+    users: [
+        {
+            id: 1,
+            name: "Helen de Freitas",
+            email: "helen@gmail.com",
+            password: 12345
+        },
+        {
+            id: 20,
+            name:"Matheus Ramos",
+            email: "matheus@gmail.com",
+            password: 67890
+        }
     ]
 }
 
@@ -105,6 +119,30 @@ app.put("/game/:id", (req,res) => {
         }
     }
 })
+
+app.post("/auth", (req, res) => {
+    let {email=false, password=false} = req.body;
+
+    if(email){
+        const user = db.users.find(u => u.email == email);
+
+        if(user){
+            if(user.password == password){
+                res.status(200);
+                res.json({token: ""});
+            }else{
+                res.status(401);
+                res.json({err: "Credenciais inválidas!"});
+            }
+        }else{
+            res.status(404);
+            res.json({err: "O e-mail enviado não existe na base de dados!"});
+        }
+    }else{
+        res.status(400);
+        res.json({err: "O e-mail enviado é inválido!"});
+    }
+});
 
 app.listen(45678, () => {
     console.log("API rodando!");
