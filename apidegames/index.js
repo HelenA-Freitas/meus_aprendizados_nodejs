@@ -5,10 +5,10 @@ const cors = require("cors");
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var db = {
+const db = {
     games: [
         {
             id: 23,
@@ -36,15 +36,15 @@ app.get("/games", (req, res) => {//endpoint = rota
     res.json(db.games);
 });
 
-app.get("/game/:id", (req,res) => {
-    if(isNaN(req.params.id)){
+app.get("/game/:id", (req, res) => {
+    if (isNaN(req.params.id)) {
         res.sendStatus(400);
-    }else{
+    } else {
         const id = parseInt(req.params.id);
         const game = db.games.find(g => g.id == id);
-        if(game == undefined){
+        if (game == undefined) {
             res.sendStatus(404);
-        }else{
+        } else {
             res.statusCode = 200
             res.json(game);
         }
@@ -52,51 +52,51 @@ app.get("/game/:id", (req,res) => {
 });
 
 app.post("/game", (req, res) => {
-    const {title, year, price} = req.body;
-
+    const { title, year, price } = req.body;
+    // console.log(req.body)
     db.games.push({
-        id:345,
+        id: 345,
         title,
         year,
         price
     });
-
     res.sendStatus(200)
 })
 
 app.delete("/game/:id", (req, res) => {
-    if(isNaN(req.params.id)){
+    if (isNaN(req.params.id)) {
         res.sendStatus(400);
-    }else{
+    } else {
         const id = parseInt(req.params.id);
         const index = db.games.findIndex(g => g.id == id);
-        if(index == -1){
+        if (index == -1) {
             res.sendStatus(404);
-        }else{
-            db.games.splice(index,1);
-            res.sendStatus(200);        }
+        } else {
+            db.games.splice(index, 1);
+            res.sendStatus(200);
+        }
     }
 });
 
-app.put("/game/:id", (req,res) => {
-    if(isNaN(req.params.id)){
+app.put("/game/:id", (req, res) => {
+    if (isNaN(req.params.id)) {
         res.sendStatus(400);
-    }else{
+    } else {
         const id = parseInt(req.params.id);
         const game = db.games.find(g => g.id == id);
-        if(!game){
+
+        if (!game) {
             res.sendStatus(404);
-        }else{
-            
-            let {title=false, year=false, price=false} = req.body;
-            
-            if(!title){
+        } else {
+
+            let { title = false, year = false, price = false } = req.body;
+            if (title) {
                 game.title = title;
             }
-            if(!price){
+            if (price) {
                 game.price = price;
             }
-            if(!year){
+            if (year) {
                 game.year = year;
             }
 
