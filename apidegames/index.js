@@ -79,11 +79,33 @@ app.get("/game/:id", auth, (req, res) => {
     } else {
         const id = parseInt(req.params.id);
         const game = db.games.find(g => g.id == id);
+        const HATEOAS = [
+            {
+                href: "http://localhost:45678/game/"+id,
+                method: "DELETE",
+                rel: "delete_game"
+            },
+            {
+                href: "http://localhost:45678/game/"+id,
+                method: "PUT",
+                rel: "edit_game"
+            },
+            {
+                href: "http://localhost:45678/game/"+id,
+                method: "GET",
+                rel: "get_game"            
+            },
+            {
+                href: "http://localhost:45678/games",
+                method: "GET",
+                rel: "get_all_games"
+            }
+        ]
         if (game == undefined) {
             res.sendStatus(404);
         } else {
             res.statusCode = 200
-            res.json(game);
+            res.json({game, _links: HATEOAS});
         }
     }
 });
