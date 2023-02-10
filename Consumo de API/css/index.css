@@ -1,0 +1,32 @@
+body{
+    background-color: #FAFAFA;
+    font-family: 'Courier New', Courier, monospace;
+}
+header{
+    background-color: #AF7595;
+}
+h1{
+    color: #FAFAFA;
+    font-size: 20px;
+    font-weight: 500;
+    text-align:right;
+    margin: 20px;
+}
+img{
+    width: 100px;
+    height: 100px;
+    object-fit: fill;
+}
+button{
+   /* display: inline-block;*/
+    background-color: #6D98BA;
+    color: #FAFAFA;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 0 black;
+}
