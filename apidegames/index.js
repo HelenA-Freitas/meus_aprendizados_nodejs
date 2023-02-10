@@ -2,11 +2,34 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+
+const JWTSecret = "jkhfrekjjjjvbkjertg";
 
 app.use(cors());
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+function auth(req, res, next){
+    const authToken = req.headers['authorization'];
+    if(authToken){
+        const bearer = authToken.split(' ');
+        const token = bearer[1];
+        jwt.verify(token, JWTSecret, (error, data) => {
+            if(error){
+                res.status(401);
+                res.json({error: "Token inválido!"});
+            }else{
+                req.token = token;
+                req.loggedUser = {id: data.id, email: data.email};
+                next();
+            }
+        })
+    }else{
+        res.status(401);
+        res.json({error: "Token inválido!"});
+    }
+}
 
 const db = {
     games: [
@@ -45,12 +68,12 @@ const db = {
     ]
 }
 
-app.get("/games", (req, res) => {//endpoint = rota
+app.get("/games", auth, (req, res) => {//endpoint = rota
     res.statusCode = 200;
     res.json(db.games);
 });
 
-app.get("/game/:id", (req, res) => {
+app.get("/game/:id", auth, (req, res) => {
     if (isNaN(req.params.id)) {
         res.sendStatus(400);
     } else {
@@ -65,7 +88,7 @@ app.get("/game/:id", (req, res) => {
     }
 });
 
-app.post("/game", (req, res) => {
+app.post("/game",auth,(req, res) => {
     const { title, year, price } = req.body;
     // console.log(req.body)
     db.games.push({
@@ -77,7 +100,7 @@ app.post("/game", (req, res) => {
     res.sendStatus(200)
 })
 
-app.delete("/game/:id", (req, res) => {
+app.delete("/game/:id", auth,(req, res) => {
     if (isNaN(req.params.id)) {
         res.sendStatus(400);
     } else {
@@ -92,7 +115,7 @@ app.delete("/game/:id", (req, res) => {
     }
 });
 
-app.put("/game/:id", (req, res) => {
+app.put("/game/:id", auth, (req, res) => {
     if (isNaN(req.params.id)) {
         res.sendStatus(400);
     } else {
@@ -121,26 +144,33 @@ app.put("/game/:id", (req, res) => {
 })
 
 app.post("/auth", (req, res) => {
-    let {email=false, password=false} = req.body;
+
+    const {email, password} = req.body;
 
     if(email){
         const user = db.users.find(u => u.email == email);
-
         if(user){
             if(user.password == password){
-                res.status(200);
-                res.json({token: ""});
+                jwt.sign({id: user.id, email: user.email}, JWTSecret, {expiresIn:'48h'},(error, token) => {
+                    if(error){
+                        res.status(400);
+                        res.json({error: "Falha interna"});
+                    }else{
+                        res.status(200);
+                        res.json({token: token});
+                    }
+                })
             }else{
                 res.status(401);
-                res.json({err: "Credenciais inválidas!"});
+                res.json({error: "Credenciais inválidas!"});
             }
         }else{
             res.status(404);
-            res.json({err: "O e-mail enviado não existe na base de dados!"});
+            res.json({error: "O e-mail enviado não existe na base de dados!"});
         }
     }else{
         res.status(400);
-        res.json({err: "O e-mail enviado é inválido!"});
+        res.json({error: "O e-mail enviado é inválido!"});
     }
 });
 
