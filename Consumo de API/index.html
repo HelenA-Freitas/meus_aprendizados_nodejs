@@ -16,28 +16,37 @@
         <title>Loja de Jogos</title>
         <header>
             <img src="img/logo.png" alt="logo da loja">
-            <img src="img/barra de carregamento.png" alt="logo da loja">
             <h1>Loja de Jogos</h1>
-            <img src="img/start.png" alt="logo da loja">
-            <img src="img/logo.png" alt="logo da loja">
         </header>
-        <h2>Login</h2>
-        <input type="text" name="email" id="email" placeholder="e-mail"><br>
-        <input type="password" name="password"id="password" placeholder="senha"><br>
-        <button onclick="login()">Entrar</button>
-        <h4>Lista de jogos</h4>
-        <ul id="games"></ul>
-        <h4>Novo jogo</h4>
-        <input type="text" name="title" id="title" placeholder="Título"><br>
-        <input type="number" name="year" id="year" placeholder="Ano"><br>
-        <input type="number" name="price" id="price" placeholder="Preço"><br>
-        <button type="button" onclick="createGame()">Criar</button>
-        <h4>Editar jogo</h4>
-        <input type="number" name="idEdit" id="idEdit" placeholder="ID" readonly><br>
-        <input type="text" name="titleEdit" id="titleEdit" placeholder="Título"><br>
-        <input type="number" name="yearEdit" id="yearEdit" placeholder="Ano"><br>
-        <input type="number" name="priceEdit" id="priceEdit" placeholder="Preço"><br>
-        <button type="button" onclick="updateGame()">Editar</button>
+        <section id="box">
+            <div class="form">
+                <h2>Login</h2>
+                <input type="text" name="email" id="email" placeholder="e-mail"><br>
+                <input type="password" name="password"id="password" placeholder="senha"><br>
+                <button onclick="login()">Entrar</button>
+            </div>
+        </section>
+        <div id="listGames">
+            <h3>Lista de jogos</h3>
+            <ul id="games"></ul>
+        </div>
+        <section id="actions">
+                <div class="form">
+                    <h3>Novo jogo</h3>
+                    <input type="text" name="title" id="title" placeholder="Título"><br>
+                    <input type="number" name="year" id="year" placeholder="Ano"><br>
+                    <input type="number" name="price" id="price" placeholder="Preço"><br>
+                    <button type="button" onclick="createGame()">Criar</button> 
+                </div>
+                <div class="form">
+                    <h3>Editar jogo</h3>
+                    <input type="number" name="idEdit" id="idEdit" placeholder="ID" readonly><br>
+                    <input type="text" name="titleEdit" id="titleEdit" placeholder="Título"><br>
+                    <input type="number" name="yearEdit" id="yearEdit" placeholder="Ano"><br>
+                    <input type="number" name="priceEdit" id="priceEdit" placeholder="Preço"><br>
+                    <button type="button" onclick="updateGame()">Editar</button>
+                </div>
+        </section>
     </body>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
