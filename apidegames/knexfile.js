@@ -16,6 +16,10 @@ module.exports = {
       seeds: {
         directory: './database/seeds',
         loadExtensions: ['.cjs', '.mjs'],
+        timestampFilenamePrefix: true,
+        sortDirsSeparately: true,
+        recursive: true
+
       },
       pool: {
         min: 0,

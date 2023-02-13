@@ -17,6 +17,8 @@
     "start": "nodemon index.js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
-    "make": "knex migrate:make"
+    "make": "knex migrate:make",
+    "seed": "knex seed:run",
+    "makesd": "knex seed:make"
   }
 }
