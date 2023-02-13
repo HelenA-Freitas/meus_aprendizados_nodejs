@@ -52,9 +52,16 @@ img{
 }
 
 #listGames{
+    display: block;
+    background-color: #639FAB;
     text-align: center;
     padding: 35px 0;
     font-size: 20px;
+}
+
+li{
+    list-style-type: none;
+
 }
 
 h2, h3{
