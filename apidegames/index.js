@@ -3,6 +3,10 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const knex = require("knex");
+const config = require('./knexfile');
+
+const database = knex(config);
 
 const JWTSecret = "jkhfrekjjjjvbkjertg";
 
@@ -31,46 +35,10 @@ function auth(req, res, next){
     }
 }
 
-const db = {
-    games: [
-        {
-            id: 23,
-            title: "Call of duty MW",
-            year: 2019,
-            price: 60
-        },
-        {
-            id: 65,
-            title: "Sea of thieves",
-            year: 2018,
-            price: 40
-        },
-        {
-            id: 2,
-            title: "Minecraft",
-            year: 2012,
-            price: 20
-        }
-    ],
-    users: [
-        {
-            id: 1,
-            name: "Helen de Freitas",
-            email: "helen@gmail.com",
-            password: 12345
-        },
-        {
-            id: 20,
-            name:"Matheus Ramos",
-            email: "matheus@gmail.com",
-            password: 67890
-        }
-    ]
-}
-
-app.get("/games", auth, (req, res) => {//endpoint = rota
+app.get("/games", auth, async (req, res) => {//endpoint = rota
     res.statusCode = 200;
-    res.json(db.games);
+    const response = await database('games').where('delete_at', null);
+    res.json(response);
 });
 
 app.get("/game/:id", auth, (req, res) => {
@@ -110,38 +78,46 @@ app.get("/game/:id", auth, (req, res) => {
     }
 });
 
-app.post("/game",auth,(req, res) => {
+app.post("/game",auth, async (req, res) => {
     const { title, year, price } = req.body;
-    // console.log(req.body)
-    db.games.push({
+
+    const response =  await database('games').insert({'title':title, 'year':year, 'price':price});
+    console.log(req.body)
+    /* db.games.push({
         id: 345,
         title,
         year,
         price
-    });
-    res.sendStatus(200)
+    }); */
+    return res.sendStatus(200)
 })
 
-app.delete("/game/:id", auth,(req, res) => {
+app.delete("/game/:id", auth, async (req, res) => {
+    //console.log('delete')
     if (isNaN(req.params.id)) {
-        res.sendStatus(400);
+        return res.sendStatus(400);
     } else {
         const id = parseInt(req.params.id);
-        const index = db.games.findIndex(g => g.id == id);
+        const response = await database('games').update('delete_at', database.fn.now()).where('id', id);
+        return res.sendStatus(200);
+        /* const index = db.games.findIndex(g => g.id == id);
         if (index == -1) {
             res.sendStatus(404);
         } else {
             db.games.splice(index, 1);
             res.sendStatus(200);
-        }
+        } */
     }
 });
 
-app.put("/game/:id", auth, (req, res) => {
+app.put("/game/:id", auth, async (req, res) => {
     if (isNaN(req.params.id)) {
         res.sendStatus(400);
     } else {
         const id = parseInt(req.params.id);
+        const { title = false, year = false, price = false } = req.body;
+        const response = await database('games').update({title, year, price}).where('id', id);
+        /* const id = parseInt(req.params.id);
         const game = db.games.find(g => g.id == id);
 
         if (!game) {
@@ -157,22 +133,20 @@ app.put("/game/:id", auth, (req, res) => {
             }
             if (year) {
                 game.year = year;
-            }
+            } */
 
-            res.sendStatus(200);
+            return res.sendStatus(200);
 
         }
-    }
-})
+    })
 
-app.post("/auth", (req, res) => {
+app.post("/auth", async (req, res) => {
 
     const {email, password} = req.body;
 
-    if(email){
-        const user = db.users.find(u => u.email == email);
-        if(user){
-            if(user.password == password){
+    const user = await database('users').where({'email':email, 'password':password});
+
+    if(user.length){
                 jwt.sign({id: user.id, email: user.email}, JWTSecret, {expiresIn:'48h'},(error, token) => {
                     if(error){
                         res.status(400);
@@ -181,18 +155,10 @@ app.post("/auth", (req, res) => {
                         res.status(200);
                         res.json({token: token});
                     }
-                })
+                })                             
             }else{
-                res.status(401);
-                res.json({error: "Credenciais inválidas!"});
-            }
-        }else{
-            res.status(404);
-            res.json({error: "O e-mail enviado não existe na base de dados!"});
-        }
-    }else{
         res.status(400);
-        res.json({error: "O e-mail enviado é inválido!"});
+        return res.json({error: "Credenciais inválidas!"});
     }
 });
 

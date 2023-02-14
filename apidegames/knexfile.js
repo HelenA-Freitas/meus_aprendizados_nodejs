@@ -18,7 +18,8 @@ module.exports = {
         loadExtensions: ['.cjs', '.mjs'],
         timestampFilenamePrefix: true,
         sortDirsSeparately: true,
-        recursive: true
+        recursive: true,
+        extension: 'cjs'
 
       },
       pool: {
