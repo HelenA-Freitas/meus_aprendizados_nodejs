@@ -7,6 +7,7 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const knex = require("knex");
 const config = require('./knexfile');
+const cookieParser = require('cookie-parser');
 
 const database = knex(config);
 
@@ -16,11 +17,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(cookieParser('gamesTestPassword'));
 app.use(session({
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: true}
+    cookie: {maxAge: 60000}
 }));
 
 app.use(flash());
