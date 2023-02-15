@@ -25,9 +25,29 @@ app.get("/", (req,res) => {
 });
 
 app.post("/form", (req, res) => {
-    const {email, name, points} = req.body;
+    const {email = false, name = false, points = false} = req.body;
 
-    const emailError;
+    let emailError = false;
+    let pointError = false;
+    let nameError = false;
+
+    if(!email || email == " "){
+        emailError = "O e-mail não pode ser vazio!"
+    }
+    
+    if(!points || points < 20){
+        pointError = "Você não pode ter menos que 20 pontos!"
+    }
+    
+    if(!name || name == " "){
+        nameError = "O nome não pode ser vazio!"
+    }
+
+    if(emailError || pointError || nameError){
+        res.redirect('/');
+    }else{
+        res.send('Funcionando...');
+    }
 
     res.send(email)
 });
