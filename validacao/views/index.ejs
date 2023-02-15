@@ -8,9 +8,12 @@
 </head>
 <body>
     <form method="post" action="/form">
-        <input type="email" name="email" id="email" placeholder="email"><br>
-        <input type="text" name="name" id="name" placeholder="name"><br>
-        <input type="number" name="points" id="points" placeholder="points"><br>
+        <input type="email" name="email" id="email" placeholder="email" value= "<%= email %>"><br>
+        <%= emailError %> <br>
+        <input type="text" name="name" id="name" placeholder="name" value= "<%= name %>"><br>
+        <%= nameError %> <br>
+        <input type="number" name="point" id="point" placeholder="point" value= "<%= point %>"><br>
+        <%= pointError %> <br>
         <button type="submit">Enviar</button>
     </form>
 </body>

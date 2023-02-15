@@ -23,21 +23,37 @@ app.use(flash());
 
 
 app.get("/", (req,res) => {
-    res.render("index");
+    let emailError = req.flash('emailError');
+    let pointError = req.flash('pointError');
+    let nameError = req.flash('nameError');
+
+    let email = req.flash('email');
+    let point = req.flash('point');
+    let name = req.flash('name');
+
+    emailError = (!emailError || emailError.length == 0) ? undefined : emailError;
+    pointError = (!pointError || pointError.length == 0) ? undefined : pointError;
+    nameError = (!nameError || nameError.length == 0) ? undefined : nameError;
+
+    email = (!email || email.length == 0) ?'' : email;
+    point = (!point || point.length == 0) ?'' : point;
+    name = (!name || name.length == 0) ?'' : name;
+
+    res.render("index", {emailError, nameError, pointError, email, name, point});
 });
 
 app.post("/form", (req, res) => {
-    const {email = false, name = false, points = false} = req.body;
+    const {email = false, name = false, point = false} = req.body;
 
-    let emailError = false;
-    let pointError = false;
-    let nameError = false;
+    let emailError;
+    let pointError;
+    let nameError;
 
     if(!email || email == " "){
         emailError = "O e-mail não pode ser vazio!"
     }
     
-    if(!points || points < 20){
+    if(!point || point < 20){
         pointError = "Você não pode ter menos que 20 pontos!"
     }
     
@@ -46,6 +62,14 @@ app.post("/form", (req, res) => {
     }
 
     if(emailError || pointError || nameError){
+        req.flash('emailError', emailError);
+        req.flash('pointError', pointError);
+        req.flash('nameError', nameError);
+
+        req.flash('email', email);
+        req.flash('point', point);
+        req.flash('name', name);
+
         res.redirect('/');
     }else{
         res.send('Funcionando...');
