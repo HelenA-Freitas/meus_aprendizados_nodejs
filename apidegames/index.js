@@ -8,11 +8,11 @@ const jwt = require("jsonwebtoken");
 const knex = require("knex");
 const config = require('./knexfile');
 const cookieParser = require('cookie-parser');
-
 const database = knex(config);
 
 const JWTSecret = "jkhfrekjjjjvbkjertg";
 
+//app.set("view engine", "ejs");
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -111,11 +111,12 @@ app.post("/game",auth, async (req, res) => {
     }
 
     if(titleError || yearError || priceError){
+        return res.status(400).json([titleError, yearError, priceError]);
 
     }else{
         const response =  await database('games').insert({'title':title, 'year':year, 'price':price});
-        console.log(req.body)
-        return res.sendStatus(200)
+        console.log(response);
+        return res.sendStatus(200);
     }
 })
 
@@ -127,13 +128,6 @@ app.delete("/game/:id", auth, async (req, res) => {
         const id = parseInt(req.params.id);
         const response = await database('games').update('delete_at', database.fn.now()).where('id', id);
         return res.sendStatus(200);
-        /* const index = db.games.findIndex(g => g.id == id);
-        if (index == -1) {
-            res.sendStatus(404);
-        } else {
-            db.games.splice(index, 1);
-            res.sendStatus(200);
-        } */
     }
 });
 
@@ -144,25 +138,7 @@ app.put("/game/:id", auth, async (req, res) => {
         const id = parseInt(req.params.id);
         const { title = false, year = false, price = false } = req.body;
         const response = await database('games').update({title, year, price}).where('id', id);
-        /* const id = parseInt(req.params.id);
-        const game = db.games.find(g => g.id == id);
-
-        if (!game) {
-            res.sendStatus(404);
-        } else {
-
-            let { title = false, year = false, price = false } = req.body;
-            if (title) {
-                game.title = title;
-            }
-            if (price) {
-                game.price = price;
-            }
-            if (year) {
-                game.year = year;
-            } */
-
-            return res.sendStatus(200);
+        return res.sendStatus(200);
 
         }
     })
