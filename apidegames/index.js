@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const flash = require("express-flash");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const knex = require("knex");
@@ -13,6 +15,15 @@ const JWTSecret = "jkhfrekjjjjvbkjertg";
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: true}
+}));
+
+app.use(flash());
 
 function auth(req, res, next){
     const authToken = req.headers['authorization'];
@@ -81,15 +92,29 @@ app.get("/game/:id", auth, (req, res) => {
 app.post("/game",auth, async (req, res) => {
     const { title, year, price } = req.body;
 
-    const response =  await database('games').insert({'title':title, 'year':year, 'price':price});
-    console.log(req.body)
-    /* db.games.push({
-        id: 345,
-        title,
-        year,
-        price
-    }); */
-    return res.sendStatus(200)
+    let titleError;
+    let yearError;
+    let priceError;
+
+    if(!title || title == " "){
+        titleError = "O título não pode ser vazio!"
+    }
+    
+    if(!year || year < 1960 || year > 2023){
+        yearError = "Ano inválido!"
+    }
+    
+    if(!price || price < 0){
+        priceError = "O preço não pode ser negativo!"
+    }
+
+    if(titleError || yearError || priceError){
+
+    }else{
+        const response =  await database('games').insert({'title':title, 'year':year, 'price':price});
+        console.log(req.body)
+        return res.sendStatus(200)
+    }
 })
 
 app.delete("/game/:id", auth, async (req, res) => {
