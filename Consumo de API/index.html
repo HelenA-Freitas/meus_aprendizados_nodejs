@@ -19,11 +19,11 @@
             <h1>Loja de Jogos</h1>
         </header>
         <section id="box">
-            <form>
+            <form id="login">
                 <h2>Login</h2>
                 <input type="text" name="email" id="email" placeholder="e-mail"><br>
                 <input type="password" name="password"id="password" placeholder="senha"><br>
-                <button onclick="login()">Entrar</button>
+                <button type= "button" onclick="login()">Entrar</button>
             </form>
         </section>
         <div id="listGames">
@@ -31,7 +31,7 @@
             <ul id="games"></ul>
         </div>
         <section id="actions">
-                <div class="form">
+                <form id="create">
                     <h3>Novo jogo</h3>
                     <input type="text" name="title" id="title" placeholder="Título"><br>
                     <input type="number" name="year" id="year" placeholder="Ano"><br>
@@ -40,8 +40,8 @@
                     <p id="errorY"></p>
                     <p id="errorP"></p>
                     <button type="button" onclick="createGame()">Criar</button> 
-                </div>
-                <div class="form">
+                </form>
+                <form id="edit">
                     <h3>Editar jogo</h3>
                     <input type="hidden" name="idEdit" id="idEdit" placeholder="ID" readonly><br>
                     <input type="text" name="titleEdit" id="titleEdit" placeholder="Título"><br>
@@ -51,7 +51,7 @@
                     <p id="errorEditY"></p>
                     <p id="errorEditP"></p>
                     <button type="button" onclick="updateGame()">Editar</button>
-                </div>
+                </form>
         </section>
     </body>
 
@@ -79,6 +79,8 @@
                 axiosConfig.headers.Authorization = "Bearer " + localStorage.getItem("token");
                 listarGames();
                 tempAlert("Logado!", 1000);
+                document.getElementById("login").reset();
+
             }).catch(error => {
                 tempAlert("Login incorreto...",2000);
             });
@@ -108,12 +110,7 @@
                     pY.innerHTML = '';
                     pP.innerHTML = '';
 
-                    const inputs = document.querySelectorAll('#title, #year, #price');
-
-                    inputs.forEach(input => {
-                    input.value = '';
-                    });
-                    
+                    document.getElementById("create").reset();
                 }
             }).catch(error => {
                 //fazer if com error.response.status == 400
@@ -193,11 +190,7 @@
                     pEditY.innerHTML = '';
                     pEditP.innerHTML = '';
 
-                    const inputs = document.querySelectorAll('#titleEdit, #yearEdit, #priceEdit');
-
-                    inputs.forEach(input => {
-                    input.value = '';
-                    });
+                    document.getElementById("edit").reset();
                 }
             }).catch(error => {
                 if(error.response.status == 400){
