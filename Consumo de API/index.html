@@ -23,6 +23,7 @@
                 <h2>Login</h2>
                 <input type="text" name="email" id="email" placeholder="e-mail"><br>
                 <input type="password" name="password"id="password" placeholder="senha"><br>
+                <p id="loginError"></p>
                 <button type= "button" onclick="login()">Entrar</button>
             </form>
         </section>
@@ -56,7 +57,10 @@
     </body>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
+        
         const axiosConfig = {
             headers:{
                 Authorization:"Bearer " + localStorage.getItem("token")
@@ -73,16 +77,32 @@
            // console.log(email, password)
 
             axios.post("http://localhost:45678/auth",{email,password}).then(res => {
-                console.log(email, password)
+
                 const token = res.data.token;
                 localStorage.setItem("token", token);
                 axiosConfig.headers.Authorization = "Bearer " + localStorage.getItem("token");
+
+                const pL = document.getElementById("loginError");
+
+                pL.innerHTML = '';
+
                 listarGames();
-                tempAlert("Logado!", 1000);
+                feedbackSucess("Logado!", 1000);
                 document.getElementById("login").reset();
 
+
             }).catch(error => {
-                tempAlert("Login incorreto...",2000);
+                const erro = error?.response?.status ?? null
+
+                if(erro && erro==400){
+                    const pL = document.getElementById("loginError");
+
+                    pL.innerHTML = 'Credenciais inválidas!';
+                }else{
+                    console.log(error)
+                }
+
+                //feedbackSucess("Login incorreto...",2000);
             });
         }
 
@@ -99,7 +119,7 @@
 
             axios.post("http://localhost:45678/game", game, axiosConfig).then(response => {
                 if (response.status == 200) {
-                    tempAlert("Game cadastrado!", 1000);
+                    feedbackSucess("Game cadastrado!", 1000);
                     listarGames();
 
                     const pT = document.getElementById("errorT");
@@ -143,7 +163,7 @@
         function deleteGame(listItem) {
             const id = listItem.getAttribute("data-id");
             axios.delete("http://localhost:45678/game/" + id, axiosConfig).then(response => {
-                tempAlert("Game deletado!", 1000);
+                feedbackSucess("Game deletado!", 1000);
                 listarGames();
             }).catch(error => {
                 console.log(error);
@@ -179,7 +199,7 @@
             axios.put("http://localhost:45678/game/" + id, game, axiosConfig).then(response => {
                 if (response.status == 200) {
                     //alert("");
-                    tempAlert("Game atualizado!", 1000);
+                    feedbackSucess("Game atualizado!", 1000);
                     listarGames();
 
                     const pEditT = document.getElementById("errorEditT");
@@ -262,14 +282,21 @@
                 console.log(error);
             });
         }
-        function tempAlert(msg, duration) {
-            const el = document.createElement("div");
-            el.setAttribute("style", "position:absolute;top:40%;left:20%;background-color:white;");
-            el.innerHTML = msg;
-            document.body.appendChild(el);
-            setTimeout(function () {
-                el.parentNode.removeChild(el);
-            }, duration);
+        function feedbackSucess(msg, duration) {
+            //const el = document.createElement("div");
+            Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: msg,
+            showConfirmButton: false,
+            timer: duration
+            })
+            // el.setAttribute("style", "position:absolute;top:40%;left:20%;  background-color: #f44336;color: white;");
+            // el.innerHTML = msg;
+            // document.body.appendChild(el);
+            // setTimeout(function () {
+            //     el.parentNode.removeChild(el);
+            // }, duration);
             
         }
         //listarGames();
