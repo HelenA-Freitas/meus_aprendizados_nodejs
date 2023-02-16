@@ -107,15 +107,15 @@ app.post("/game",auth, async (req, res) => {
     }
     
     if(!price || price < 0){
-        priceError = "O preço não pode ser negativo!"
+        priceError = "O preço não pode ser nulo ou negativo!"
     }
 
     if(titleError || yearError || priceError){
-        return res.status(400).json([titleError, yearError, priceError]);
+        return res.status(400).json({titleError, yearError, priceError});
 
     }else{
         const response =  await database('games').insert({'title':title, 'year':year, 'price':price});
-        console.log(response);
+        //console.log(response);
         return res.sendStatus(200);
     }
 })
@@ -137,9 +137,29 @@ app.put("/game/:id", auth, async (req, res) => {
     } else {
         const id = parseInt(req.params.id);
         const { title = false, year = false, price = false } = req.body;
-        const response = await database('games').update({title, year, price}).where('id', id);
-        return res.sendStatus(200);
 
+        let titleError;
+        let yearError;
+        let priceError;
+        
+        if(!title || title == " "){
+            titleError = "O título não pode ser vazio!"
+        }
+        
+        if(!year || year < 1960 || year > 2023){
+            yearError = "Ano inválido!"
+        }
+        
+        if(!price || price < 0){
+            priceError = "O preço não pode ser nulo ou negativo!"
+        }
+    
+        if(titleError || yearError || priceError){
+            return res.status(400).json({titleError, yearError, priceError});
+        }else{
+            const response = await database('games').update({title, year, price}).where('id', id);
+            return res.sendStatus(200);
+        }
         }
     })
 

@@ -15,16 +15,16 @@
     <body>
         <title>Loja de Jogos</title>
         <header>
-            <img src="img/logo.png" alt="logo da loja">
+            <img src="img/logo2.gif" alt="gif logo da loja">
             <h1>Loja de Jogos</h1>
         </header>
         <section id="box">
-            <div class="form">
+            <form>
                 <h2>Login</h2>
                 <input type="text" name="email" id="email" placeholder="e-mail"><br>
                 <input type="password" name="password"id="password" placeholder="senha"><br>
                 <button onclick="login()">Entrar</button>
-            </div>
+            </form>
         </section>
         <div id="listGames">
             <h3>Lista de jogos</h3>
@@ -36,7 +36,9 @@
                     <input type="text" name="title" id="title" placeholder="Título"><br>
                     <input type="number" name="year" id="year" placeholder="Ano"><br>
                     <input type="number" name="price" id="price" placeholder="Preço"><br>
-                    <p id="Error"></p>
+                    <p id="errorT"></p>
+                    <p id="errorY"></p>
+                    <p id="errorP"></p>
                     <button type="button" onclick="createGame()">Criar</button> 
                 </div>
                 <div class="form">
@@ -45,6 +47,9 @@
                     <input type="text" name="titleEdit" id="titleEdit" placeholder="Título"><br>
                     <input type="number" name="yearEdit" id="yearEdit" placeholder="Ano"><br>
                     <input type="number" name="priceEdit" id="priceEdit" placeholder="Preço"><br>
+                    <p id="errorEditT"></p>
+                    <p id="errorEditY"></p>
+                    <p id="errorEditP"></p>
                     <button type="button" onclick="updateGame()">Editar</button>
                 </div>
         </section>
@@ -65,7 +70,10 @@
             const email = emailField.value;
             const password = passwordField.value;
 
+           // console.log(email, password)
+
             axios.post("http://localhost:45678/auth",{email,password}).then(res => {
+                console.log(email, password)
                 const token = res.data.token;
                 localStorage.setItem("token", token);
                 axiosConfig.headers.Authorization = "Bearer " + localStorage.getItem("token");
@@ -91,13 +99,46 @@
                 if (response.status == 200) {
                     tempAlert("Game cadastrado!", 1000);
                     listarGames();
+
+                    const pT = document.getElementById("errorT");
+                    const pY = document.getElementById("errorY");
+                    const pP = document.getElementById("errorP");
+
+                    pT.innerHTML = '';
+                    pY.innerHTML = '';
+                    pP.innerHTML = '';
+
+                    const inputs = document.querySelectorAll('#title, #year, #price');
+
+                    inputs.forEach(input => {
+                    input.value = '';
+                    });
+                    
                 }
             }).catch(error => {
                 //fazer if com error.response.status == 400
-                    console.log("Esse é o erro que eu quero!");
-                    console.log(error)
-                    console.log(error.response.data[0])
+                if(error.response.status == 400){
+                    const {titleError, yearError, priceError} = error.response.data;
+                    const pT = document.getElementById("errorT");
+                    const pY = document.getElementById("errorY");
+                    const pP = document.getElementById("errorP");
 
+                    pT.innerHTML = '';
+                    pY.innerHTML = '';
+                    pP.innerHTML = '';
+
+                    if(titleError){
+                        pT.innerHTML = titleError;
+                    }
+                    if(yearError){
+                        pY.innerHTML = yearError;
+                    }
+                    if(priceError){
+                        pP.innerHTML = priceError;
+                    }
+                }else{
+                    console.log(error);
+                }
             });
 
         }
@@ -117,6 +158,7 @@
             const title = listItem.getAttribute("data-title");
             const year = listItem.getAttribute("data-year");
             const price = listItem.getAttribute("data-price");
+
             document.getElementById("idEdit").value = id;
             document.getElementById("titleEdit").value = title;
             document.getElementById("yearEdit").value = year;
@@ -142,9 +184,47 @@
                     //alert("");
                     tempAlert("Game atualizado!", 1000);
                     listarGames();
+
+                    const pEditT = document.getElementById("errorEditT");
+                    const pEditY = document.getElementById("errorEditY");
+                    const pEditP = document.getElementById("errorEditP");
+
+                    pEditT.innerHTML = '';
+                    pEditY.innerHTML = '';
+                    pEditP.innerHTML = '';
+
+                    const inputs = document.querySelectorAll('#titleEdit, #yearEdit, #priceEdit');
+
+                    inputs.forEach(input => {
+                    input.value = '';
+                    });
                 }
             }).catch(error => {
-                console.log(error);
+                if(error.response.status == 400){
+
+                    const {titleError, yearError, priceError} = error.response.data;
+
+                    const pEditT = document.getElementById("errorEditT");
+                    const pEditY = document.getElementById("errorEditY");
+                    const pEditP = document.getElementById("errorEditP");
+
+                    pEditT.innerHTML = '';
+                    pEditY.innerHTML = '';
+                    pEditP.innerHTML = '';
+
+                    if(titleError){
+                        pEditT.innerHTML = titleError;
+                    }
+                    if(yearError){
+                        pEditY.innerHTML = yearError;
+                    }
+                    if(priceError){
+                        pEditP.innerHTML = priceError;
+                    }
+                }else{
+                    console.log(error);
+                }
+
             });
 
         }
