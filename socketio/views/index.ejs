@@ -7,9 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="text" name="" id="word" oninput="enviar()">
-    <button onclick="enviar()">Enviar</button>
-    <p id="result"></p>
+    <h1>Chat do Guia</h1>
+    <div id="chat">
+
+    </div><br>
+    <input type="text" name="" id="msg"><br>
+    <input type="text" name="" id="username" placeholder="Seu nome de usuário">
+    <button>Enviar</button>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
 <script>
@@ -18,17 +22,6 @@
         console.log('Desconectado');
     })
 
-    socket.emit('welcome', {nome:'Helen Freitas'});
 
-    socket.on('result', (data) => {
-        console.log(data);
-        const p = document.getElementById('result');
-        p.innerHTML = data;
-    })
-
-    function enviar(){
-        const input = document.getElementById('word');
-        socket.emit('word', input.value);
-    }
 </script>
 </html>

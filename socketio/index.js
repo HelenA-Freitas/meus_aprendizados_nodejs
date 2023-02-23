@@ -10,15 +10,6 @@ io.on('connection', (socket) => {
         console.log('X desconectou: ' + socket.id);
     });
 
-    socket.on('welcome', (data) => {
-        console.log('EXECUTANDO EVENTO DE BOAS VINDAS');
-        console.log(data);
-    });
-
-    socket.on('word', (data) => {
-        console.log(data);
-        socket.emit('result', data + ' - EMPRESA X');
-    });
 })
 
 app.set('view engine', 'ejs');
