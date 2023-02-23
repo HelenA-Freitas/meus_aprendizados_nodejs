@@ -5,8 +5,16 @@ const http = require("http").createServer(app);
 const io = require('socket.io')(http);
 
 io.on('connection', (socket) => {
-    console.log(socket);
-    console.log(socket.id);
+    socket.on('welcome', (data) => {
+        console.log('EXECUTANDO EVENTO DE BOAS VINDAS');
+        console.log(data);
+    });
+
+    socket.on('word', (data) => {
+        console.log(data);
+        socket.emit('result', data + ' - EMPRESA X');
+    })
+
 })
 
 app.set('view engine', 'ejs');
