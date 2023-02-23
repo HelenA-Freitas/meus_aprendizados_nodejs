@@ -22,7 +22,15 @@
         console.log('Desconectado');
     });
 
-    
+    socket.on('showmsg', (data) => {
+        console.log(data);
+
+        const chat = document.getElementById('chat');
+        const p = document.createElement('p');
+        
+        p.innerHTML = data.username + ': ' + data.msg;
+        chat.append(p);
+    });
 
     function send(){
         const msgField = document.getElementById('msg');
