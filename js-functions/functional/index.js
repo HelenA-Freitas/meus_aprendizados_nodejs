@@ -53,3 +53,8 @@ const response = numbers.filter(mult2);
 const greatStudent = student => student.score > 9;
 
     //console.log(students.filter(greatStudent));
+
+//Reduce
+
+const totalNumbers = numbers.reduce((total, el) => total + el);
+console.log(totalNumbers);
