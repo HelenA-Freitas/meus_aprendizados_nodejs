@@ -43,3 +43,13 @@ const getScore = students.map(el => el.score)
 
     //console.log(getScore);
 
+//Filter
+
+const mult2 = el => el % 2 === 0;
+const response = numbers.filter(mult2);
+
+    //console.log(response);
+
+const greatStudent = student => student.score > 9;
+
+    //console.log(students.filter(greatStudent));
