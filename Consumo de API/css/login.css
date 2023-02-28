@@ -36,16 +36,11 @@ img{
 }
 
 form{
-    /* display:inline-block; */
     background-color: #639FAB;
     box-shadow: 5px 5px 0 #000;
     border-radius: 5px;
-}
-
-#login{
     padding: 20px;
     margin: 0 auto;
-
 }
 
 input{
