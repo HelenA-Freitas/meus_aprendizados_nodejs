@@ -185,6 +185,8 @@ app.post("/auth", async (req, res) => {
     }
 });
 
+
+
 app.listen(45678, () => {
     console.log("API rodando!");
 })
