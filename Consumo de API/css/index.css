@@ -37,9 +37,6 @@ img{
     width: 100%;
 }
 
-#div-form-login{
-    align-self: center;
-}
 
 #actions{
     justify-content: space-around;
@@ -53,17 +50,15 @@ form{
     border-radius: 5px;
 }
 
-#login{
-    padding: 20px;
-    margin: 0 auto;
-
-}
 
 #listGames{
     display: block;
     text-align: center;
-    padding: 35px 0;
+    margin: 0 auto;
+    padding: 35px;
     font-size: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 input{
@@ -76,12 +71,32 @@ input{
 h2, h3{
     color: #FF7F11;
     text-shadow: 2px 2px 0 #000;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 }
 
 form p{
     color: red;
     font-size: 12.5px;
+    margin: 5px;
+}
+
+#div-table{
+    margin: 0 auto;
+    border-width: 1px;
+    border:solid #639FAB;
+    border-radius: 5px;
+}
+#thead-list-games{
+    background-color: #639FAB;
+    color: #FAFAFA;
+    padding: 15px;
+}
+
+.col-titles{
+    text-align: justify;
+    margin: 5px;
+}
+.col-actions{
     margin: 5px;
 }
 

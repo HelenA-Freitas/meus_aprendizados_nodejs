@@ -151,6 +151,10 @@ function listarGames() {
             const col1 = document.createElement('td');
             const col2 = document.createElement('td');
             const col3 = document.createElement('td');
+            const colAction = document.createElement('td');
+
+            col1.setAttribute("class", "col-titles");
+            colAction.setAttribute("class", "col-actions");
 
             item.setAttribute("data-id", game.id);
             item.setAttribute("data-title", game.title);
@@ -173,11 +177,13 @@ function listarGames() {
                 loadForm(item);
             });
 
+            colAction.appendChild(deleteBtn);
+            colAction.appendChild(editBtn);
+
             item.appendChild(col1);
             item.appendChild(col2);
             item.appendChild(col3);
-            item.appendChild(deleteBtn);
-            item.appendChild(editBtn);
+            item.appendChild(colAction);
             tbody.appendChild(item);
 
         });
