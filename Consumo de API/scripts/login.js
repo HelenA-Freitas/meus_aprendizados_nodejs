@@ -20,7 +20,6 @@ function login(){
         const pL = document.getElementById("loginError");
         pL.innerHTML = '';
 
-        listarGames();
         document.getElementById("login").reset();
         feedbackSucess("Logado!", 1000);
         setTimeout(() => {
@@ -39,6 +38,24 @@ function login(){
         }
 
     });
+}
+
+function feedbackSucess(msg, duration) {
+    //const el = document.createElement("div");
+    Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: msg,
+    showConfirmButton: false,
+    timer: duration
+    })
+    // el.setAttribute("style", "position:absolute;top:40%;left:20%;  background-color: #f44336;color: white;");
+    // el.innerHTML = msg;
+    // document.body.appendChild(el);
+    // setTimeout(function () {
+    //     el.parentNode.removeChild(el);
+    // }, duration);
+    
 }
 
         //listarGames();

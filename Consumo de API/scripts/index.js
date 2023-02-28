@@ -147,29 +147,35 @@ function listarGames() {
         tbody.innerHTML = "";
 
         games.forEach(game => {
-            const item = document.createElement("li");
+            const item = document.createElement("tr");
+            const col1 = document.createElement('td');
+            const col2 = document.createElement('td');
+            const col3 = document.createElement('td');
 
             item.setAttribute("data-id", game.id);
             item.setAttribute("data-title", game.title);
             item.setAttribute("data-year", game.year);
             item.setAttribute("data-price", game.price);
 
-            item.innerHTML = /* game.id */game.title + " - " + game.year + " - R$" + game.price;
+            col1.innerHTML = game.title;
+            col2.innerHTML = game.year;
+            col3.innerHTML = game.price;
 
             const deleteBtn = document.createElement("button");
             deleteBtn.innerHTML = "Deletar";
-
             deleteBtn.addEventListener("click", function () {
                 deleteGame(item);
             });
 
             const editBtn = document.createElement("button");
             editBtn.innerHTML = "Editar";
-
             editBtn.addEventListener("click", function () {
                 loadForm(item);
             });
 
+            item.appendChild(col1);
+            item.appendChild(col2);
+            item.appendChild(col3);
             item.appendChild(deleteBtn);
             item.appendChild(editBtn);
             tbody.appendChild(item);
@@ -180,6 +186,7 @@ function listarGames() {
         console.log(error);
     });
 }
+window.onload = listarGames();
 
 function feedbackSucess(msg, duration) {
     //const el = document.createElement("div");
