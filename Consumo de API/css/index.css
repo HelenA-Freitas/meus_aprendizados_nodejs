@@ -26,31 +26,6 @@ img{
     height: 120px;
 }
 
-#actions{
-    display: flex;
-    align-items: center;
-    text-align: center;
-}
-
-#box{
-    height: 300px;
-    width: 100%;
-}
-
-
-#actions{
-    justify-content: space-around;
-    padding: 35px 0;
-}
-
-form{
-    /* display:inline-block; */
-    background-color: #639FAB;
-    box-shadow: 5px 5px 0 #000;
-    border-radius: 5px;
-}
-
-
 #listGames{
     display: block;
     text-align: center;
