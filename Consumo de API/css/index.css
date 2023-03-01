@@ -61,6 +61,10 @@ form{
     align-items: center;
 }
 
+td{
+    padding: 5px;
+}
+
 input{
     margin-bottom: 20px;
     border-radius: 5px;
@@ -68,6 +72,7 @@ input{
     height: 40px;
     padding: 5px;
 }
+
 
 #lisGames h2, h3{
     color: #FF7F11;
@@ -84,10 +89,13 @@ input{
 
 #div-table{
     margin: 0 auto;
+}
+
+#table-list-games{
     border-width: 1px;
     border:solid #639FAB;
-    border-radius: 5px;
 }
+
 #thead-list-games{
     background-color: #639FAB;
     color: #FAFAFA;
@@ -108,15 +116,29 @@ button{
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     border-radius: 5px;
-    margin: 5px;
     padding: 8px;
     border: none;
     border-radius: 5px;
     box-shadow: 2px 2px 0 black;
     transition: transform 50ms linear;
 }
+
+tbody button{
+    margin: 5px;
+}
+
 #button-create{
-    margin-bottom: 10px;
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 40px;
+    width: 180px;
+}
+#div-button-create{
+    margin: 0 auto;
+}
+#button-delete{
+    background-color: gray;
 }
 
 button:hover{

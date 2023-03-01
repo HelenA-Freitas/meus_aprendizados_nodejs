@@ -163,7 +163,7 @@ function listarGames() {
 
             col1.innerHTML = game.title;
             col2.innerHTML = game.year;
-            col3.innerHTML = game.price;
+            col3.innerHTML = 'R$ '+ (game.price).toFixed(2);
 
             const deleteBtn = document.createElement("button");
             deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
@@ -177,19 +177,21 @@ function listarGames() {
                 loadForm(item);
             });
 
+            deleteBtn.setAttribute('id', 'button-delete');
+
             editBtn.setAttribute('type', 'button');
             editBtn.setAttribute('data-toggle', 'modal');
             editBtn.setAttribute('data-target', '#editGameModal');
 
-            colAction.appendChild(deleteBtn);
-            colAction.appendChild(editBtn);
+            colAction.append(deleteBtn);
+            colAction.append(editBtn);
 
-            item.appendChild(col1);
-            item.appendChild(col2);
-            item.appendChild(col3);
-            item.appendChild(colAction);
+            item.append(col1);
+            item.append(col2);
+            item.append(col3);
+            item.append(colAction);
 
-            tbody.appendChild(item);
+            tbody.append(item);
         });
 
     }).catch(error => {
@@ -216,7 +218,8 @@ function msgConfirm(item){
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim, delete!'
+        confirmButtonText: 'Sim, delete!',
+        reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
           deleteGame(item);

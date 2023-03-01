@@ -20,21 +20,25 @@
             <img src="img/logo2.gif" alt="gif logo da loja">
             <h1>Loja de Jogos</h1>
         </header>
-        <div id="listGames">
+        <div id="listGames" class="row">
             <h3>Lista de jogos</h3>
-            <button id='button-create' type="button" data-toggle="modal" data-target="#newGameModal">+ novo jogo</button>
-            <div id="div-table" class="col-lg-10 col-md-12 text-center">
-                <table id='table-list-games' class="col-lg-12 col-md-12 mr-auto ml-auto">
-                    <thead id="thead-list-games">
-                        <tr>
-                            <th>Título</th>
-                            <th>Ano</th>
-                            <th>Preço</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="games"></tbody>
-                </table>
+            <div id="div-all-table" class="col-lg-12 col-md-12">
+                <div id="div-button-create" class="col-lg-10 text-right">
+                    <button id='button-create' type="button" data-toggle="modal" data-target="#newGameModal">+ novo jogo</button>
+                </div>
+                <div id='div-table' class="col-lg-10 text-center">
+                    <table id='table-list-games' class="col-lg-12 col-md-12 mr-auto ml-auto">
+                        <thead id="thead-list-games">
+                            <tr>
+                                <th>Título</th>
+                                <th>Ano</th>
+                                <th>Preço</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="games"></tbody>
+                    </table>
+                </div>
             </div> 
         </div>
         <div class="modal fade" id="newGameModal" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
