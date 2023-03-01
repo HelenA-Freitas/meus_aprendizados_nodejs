@@ -11,7 +11,7 @@ header{
     padding: 10px 20px;
 }
 
-h1{
+header > h1{
     color: #FAFAFA;
     text-shadow: 4px 4px 0 black;
     font-family: 'VT323', monospace;
@@ -69,7 +69,7 @@ input{
     padding: 5px;
 }
 
-h2, h3{
+#lisGames h2, h3{
     color: #FF7F11;
     text-shadow: 2px 2px 0 #000;
     margin-bottom: 40px;
@@ -108,9 +108,8 @@ button{
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     border-radius: 5px;
-    height: 30px;
     margin: 5px;
-    padding: 5px;
+    padding: 8px;
     border: none;
     border-radius: 5px;
     box-shadow: 2px 2px 0 black;

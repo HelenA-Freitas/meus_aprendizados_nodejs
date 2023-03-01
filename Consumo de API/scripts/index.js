@@ -166,16 +166,20 @@ function listarGames() {
             col3.innerHTML = game.price;
 
             const deleteBtn = document.createElement("button");
-            deleteBtn.innerHTML = "Deletar";
+            deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
             deleteBtn.addEventListener("click", function () {
-                deleteGame(item);
+                msgConfirm(item);
             });
 
             const editBtn = document.createElement("button");
-            editBtn.innerHTML = "Editar";
+            editBtn.innerHTML = '<i class="fa-sharp fa-solid fa-pen-to-square"></i>';
             editBtn.addEventListener("click", function () {
                 loadForm(item);
             });
+
+            editBtn.setAttribute('type', 'button');
+            editBtn.setAttribute('data-toggle', 'modal');
+            editBtn.setAttribute('data-target', '#editGameModal');
 
             colAction.appendChild(deleteBtn);
             colAction.appendChild(editBtn);
@@ -184,8 +188,8 @@ function listarGames() {
             item.appendChild(col2);
             item.appendChild(col3);
             item.appendChild(colAction);
-            tbody.appendChild(item);
 
+            tbody.appendChild(item);
         });
 
     }).catch(error => {
@@ -203,11 +207,19 @@ function feedbackSucess(msg, duration) {
     showConfirmButton: false,
     timer: duration
     })
-    // el.setAttribute("style", "position:absolute;top:40%;left:20%;  background-color: #f44336;color: white;");
-    // el.innerHTML = msg;
-    // document.body.appendChild(el);
-    // setTimeout(function () {
-    //     el.parentNode.removeChild(el);
-    // }, duration);
-    
+}
+
+function msgConfirm(item){
+    Swal.fire({
+        title: 'Tem certeza que deseja deletar?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, delete!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          deleteGame(item);
+        }
+      })
 }
