@@ -64,6 +64,7 @@ form{
 input{
     margin-bottom: 20px;
     border-radius: 5px;
+    width: 100%;
     height: 40px;
     padding: 5px;
 }
@@ -74,9 +75,10 @@ h2, h3{
     margin-bottom: 40px;
 }
 
-form p{
+#newGameModal p{
+    text-align: center;
     color: red;
-    font-size: 12.5px;
+    font-size: 14px;
     margin: 5px;
 }
 
@@ -101,27 +103,23 @@ form p{
 }
 
 button{
-   /* display: inline-block;*/
     background-color: #FF7F11;
     color: #FAFAFA;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
+    border-radius: 5px;
     height: 30px;
-    padding: 10px;
-    margin: 10px;
+    margin: 5px;
+    padding: 5px;
     border: none;
     border-radius: 5px;
     box-shadow: 2px 2px 0 black;
     transition: transform 50ms linear;
 }
+#button-create{
+    margin-bottom: 10px;
+}
 
 button:hover{
     transform: scale(1.05);
-}
-
-el{
-    position:absolute;
-    top:40%;
-    left:20%;
-    background-color:white;
 }

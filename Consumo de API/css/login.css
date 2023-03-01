@@ -7,7 +7,7 @@ header{
     display: flex;
     justify-content: space-evenly;
     background-color: #FF7F11;
-    border-bottom: 5px solid;
+    border-bottom: 5px solid #53FF45;
     padding: 10px 20px;
 }
 

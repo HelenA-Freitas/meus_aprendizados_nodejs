@@ -21,7 +21,7 @@ function login(){
         pL.innerHTML = '';
 
         document.getElementById("login").reset();
-        feedbackSucess("Logado!", 1000);
+        feedbackSucess("Logado!", 800);
         setTimeout(() => {
             window.location.assign('../index.html')
         }, 1000);
