@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div className="App">
-      <header>
+      {/* <header>
         <h1>Loja de Jogos</h1>
       </header>
       <div id="box" className="container-fluid row align-items-center" >
@@ -20,8 +20,8 @@ function App() {
                     <button type= "button" onClick="login()">Entrar</button>
                 </form>
             </div>
-        </div>
-      {/* <div>
+        </div> */}
+      <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
         </a>
@@ -40,7 +40,7 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p> */}
+      </p>
     </div>
   )
 }
