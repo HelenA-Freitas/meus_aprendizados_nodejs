@@ -1,7 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { Container, Box, Typography, FormControlLabel, Checkbox, Button } from "@mui/material";
 import { SetStateAction, useState } from "react";
-import AcessButton from "./AcessAccount";
 import {PasswordInput} from "./PasswordInput";
 import { theme } from "../stylelogin";
 import {UserInput} from "./UserInput";

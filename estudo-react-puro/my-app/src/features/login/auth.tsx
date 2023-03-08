@@ -1,5 +1,4 @@
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const axiosConfig = {
     headers:{
@@ -15,7 +14,6 @@ interface Props {
 export const login = ({email, password}: Props) => {
 
     axios.post("http://localhost:45678/auth",{email,password}).then(res => {
-        console.log(res.data);
         const token = res.data.token;
         localStorage.setItem("token", token);
         axiosConfig.headers.Authorization = "Bearer " + localStorage.getItem("token");
