@@ -1,12 +1,13 @@
 import { Button } from "@mui/material";
 
-export default function AcessButton(){
+export default function AcessButton(action: any){
     return(
         <Button
-        type="submit"
+        type="button"
         fullWidth
         variant="contained"
         color='secondary'
+        onClick={() =>action}
         sx={{
           mt: 3,
           mb: 2,

@@ -1,8 +1,9 @@
 import TextField from "@mui/material/TextField";
+import { useState } from "react";
 
-export default function UserInput(){
+export const UserInput = (props: any) => {
     return(
-        <TextField
+        <TextField {...props}
         margin="normal"
         required
         fullWidth

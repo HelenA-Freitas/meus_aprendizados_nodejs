@@ -1,13 +1,22 @@
 import { ThemeProvider } from "@emotion/react";
-import { Container, Box, Typography, TextField, FormControlLabel, Checkbox, Button } from "@mui/material";
-import { useState } from "react";
+import { Container, Box, Typography, FormControlLabel, Checkbox, Button } from "@mui/material";
+import { SetStateAction, useState } from "react";
 import AcessButton from "./AcessAccount";
-import PasswordInput from "./PasswordInput";
+import {PasswordInput} from "./PasswordInput";
 import { theme } from "../stylelogin";
-import UserInput from "./UserInput";
+import {UserInput} from "./UserInput";
+import { login } from "../auth";
 
 
 export default function FormLogin(){
+
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleLogin = async () => {
+    await login({email, password});
+  }
+
     return(
         <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -26,10 +35,24 @@ export default function FormLogin(){
               Login
             </Typography>
             <Box component="form" sx={{ mt: 1 }}>
-                <UserInput/>
-                <PasswordInput/>
+                <UserInput onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}/>
+                <PasswordInput onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}/>
                 <FormControlLabel control={<Checkbox value="remember" />} label="Lembre de mim" />
-                <AcessButton/>
+                <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color='secondary'
+                onClick={() => handleLogin()}
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  backgroundColor: '#FF7F11'
+                }}
+              >
+                  Entrar
+                </Button>
+                {/* <AcessButton action={() => console.log('click')}/> */}
             </Box>
           </Box>
         </Container>
