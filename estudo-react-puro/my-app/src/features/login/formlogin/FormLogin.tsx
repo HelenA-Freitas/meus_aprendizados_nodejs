@@ -13,7 +13,8 @@ export default function FormLogin(){
   const [email, setEmail] = useState('');
 
   const handleLogin = async () => {
-    await login({email, password});
+    const token = await login({email, password});
+    // if()
   }
 
     return(

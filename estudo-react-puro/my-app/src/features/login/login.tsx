@@ -1,5 +1,5 @@
-import FormLogin from './form/FormLogin';
-import Header from './header/Header';
+import FormLogin from './formlogin/FormLogin';
+import Header from './headerlogin/Header';
 
 export default function LoginPage() {
     return (
