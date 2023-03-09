@@ -3,7 +3,7 @@ import { ThemeProvider } from "@mui/system";
 import CreateAccount from "./CreateAccount";
 import { theme } from "../stylelogin";
 
-export default function Header(){
+export default function HeaderLogin(){
     return(
         <ThemeProvider theme={theme}>
             <Box
