@@ -20,7 +20,7 @@ export const login = ({email, password}: Props) => {
         axiosConfig.headers.Authorization = "Bearer " + localStorage.getItem("token");
         feedbackSucess("Logado!", 800);
         setTimeout(() => {
-            window.location.assign('/jogos')
+            window.location.assign('/jogos');
         },850);
     }).catch(error => {
         console.log(error);

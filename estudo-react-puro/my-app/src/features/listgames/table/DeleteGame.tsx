@@ -1,4 +1,5 @@
-import { Button } from "@mui/material";
+import { Button, SvgIcon } from "@mui/material";
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -39,7 +40,9 @@ function handleDelete(id: number){
 
 export default function DeleteGame({id, title}: Props){
     return(
-        <Button type="button" onClick={() => ConfirmDelete(id, title)}>Delete</Button>
+        <Button type="button" onClick={() => ConfirmDelete(id, title)}
+            sx={{backgroundColor: 'gray', color:'white'}}>
+                <DeleteSharpIcon/>
+        </Button>
     )
 }
-
