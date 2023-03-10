@@ -1,7 +1,9 @@
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { theme } from "../../login/style";
 import ShowGames from "./ShowGames";
+import TableHeader from "./TableHeader";
 
 const axiosConfig = {
     headers:{
@@ -26,20 +28,15 @@ export default function GameTable(){
     },[data]);
 
     return(
-        <TableContainer component={Paper} sx={{mt: 5}}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Título</TableCell>
-              <TableCell align="right">Ano</TableCell>
-              <TableCell align="right">Preço</TableCell>
-              <TableCell align="right">Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((item) => <ShowGames id={item.id} title={item.title} year={item.year} price={item.price}/>)}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <ThemeProvider theme={theme}>
+        <TableContainer component={Paper} sx={{my: 5, mx: 'auto', width: 1500}}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHeader/>
+            <TableBody>
+              {data.map((item) => <ShowGames id={item.id} title={item.title} year={item.year} price={item.price}/>)}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </ThemeProvider>
     )
 }

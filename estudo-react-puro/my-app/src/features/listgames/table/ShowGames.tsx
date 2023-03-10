@@ -9,15 +9,10 @@ interface Props {
 
 export default function ShowGames({id, title, year, price}:Props){
     return(
-    <TableRow 
-        key={title}
-        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-    >
-        <TableCell component="th" scope="row">
-            {title}
-        </TableCell>
-        <TableCell align="right">{year}</TableCell>
-        <TableCell align="right">{price}</TableCell>
+    <TableRow>
+        <TableCell component="th" scope="row"  sx={{fontSize:16}}>{title}</TableCell>
+        <TableCell align="left" sx={{fontSize:16}}>{year}</TableCell>
+        <TableCell align="left" sx={{fontSize:16}}>R$ {price.toFixed(2)}</TableCell>
     </TableRow>
     )
 }

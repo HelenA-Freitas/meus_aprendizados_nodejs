@@ -1,8 +1,6 @@
-import { ThemeProvider } from "@emotion/react";
 import { Container, Box, Typography, FormControlLabel, Checkbox, Button } from "@mui/material";
 import { SetStateAction, useState } from "react";
 import {PasswordInput} from "./PasswordInput";
-import { theme } from "../stylelogin";
 import {UserInput} from "./UserInput";
 import { login } from "../auth";
 
@@ -17,7 +15,6 @@ export default function FormLogin(){
   }
 
     return(
-        <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <Box
             sx={{
@@ -55,6 +52,5 @@ export default function FormLogin(){
             </Box>
           </Box>
         </Container>
-      </ThemeProvider>
     )
 }
