@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const axiosConfig = {
     headers:{
@@ -17,22 +18,22 @@ export const login = ({email, password}: Props) => {
         const token = res.data.token;
         localStorage.setItem("token", token);
         axiosConfig.headers.Authorization = "Bearer " + localStorage.getItem("token");
-        if(token){
-            window.location.assign('/jogos');
-        }
-
+        feedbackSucess("Logado!", 800);
+        setTimeout(() => {
+            window.location.assign('/jogos')
+        },850);
     }).catch(error => {
         console.log(error);
     });
 }
 
-// function feedbackSucess(msg, duration) {
-//     //const el = document.createElement("div");
-//     Swal.fire({
-//     position: 'top-end',
-//     icon: 'success',
-//     title: msg,
-//     showConfirmButton: false,
-//     timer: duration
-//     })
-// }
+function feedbackSucess(msg: string, duration:number) {
+    //const el = document.createElement("div");
+    Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: msg,
+    showConfirmButton: false,
+    timer: duration
+    })
+}

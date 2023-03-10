@@ -1,4 +1,5 @@
 import { TableRow, TableCell } from "@mui/material"
+import DeleteGame from "./DeleteGame";
 
 interface Props {
     id: number;
@@ -13,6 +14,9 @@ export default function ShowGames({id, title, year, price}:Props){
         <TableCell component="th" scope="row"  sx={{fontSize:16}}>{title}</TableCell>
         <TableCell align="left" sx={{fontSize:16}}>{year}</TableCell>
         <TableCell align="left" sx={{fontSize:16}}>R$ {price.toFixed(2)}</TableCell>
+        <TableCell> 
+            <DeleteGame id={id} title={title}/>
+        </TableCell>
     </TableRow>
     )
 }
