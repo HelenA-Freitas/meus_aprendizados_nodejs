@@ -25,6 +25,9 @@ export const update = ({id, titleGame, yearGame, priceGame}: Props) => {
         if (response.status === 200) {
             //alert("");
             feedbackSucess("Game atualizado!", 1000);
+            setTimeout(() => {
+                window.location.assign('/jogos');
+            },1050);
             
         }
     }).catch((error: any) => {

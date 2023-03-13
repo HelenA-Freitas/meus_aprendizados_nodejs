@@ -22,6 +22,9 @@ export const createGame = ({title, year, price}: Props) => {
 
     axios.post("http://localhost:45678/game", game, axiosConfig).then(response => {
             feedbackSucess("Game cadastrado!", 1000);
+            setTimeout(() => {
+                window.location.assign('/jogos');
+            },1050);
 
     }).catch((error: any) => {
         //fazer if com error.response.status == 400
