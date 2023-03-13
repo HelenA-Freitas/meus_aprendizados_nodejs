@@ -22,7 +22,7 @@ export const update = ({id, titleGame, yearGame, priceGame}: Props) => {
     }
 
     axios.put("http://localhost:45678/game/" + id, game, axiosConfig).then(response => {
-        if (response.status == 200) {
+        if (response.status === 200) {
             //alert("");
             feedbackSucess("Game atualizado!", 1000);
             

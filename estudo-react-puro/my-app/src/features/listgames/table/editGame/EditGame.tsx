@@ -1,8 +1,7 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import { useState } from "react";
 import EditModal from "./EditModal";
-import { ModalClose } from "@mui/joy";
 
 interface Props{
     id:number;

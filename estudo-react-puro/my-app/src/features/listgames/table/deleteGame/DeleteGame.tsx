@@ -1,4 +1,4 @@
-import { Button, SvgIcon } from "@mui/material";
+import { Button } from "@mui/material";
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import axios from "axios";
 import Swal from "sweetalert2";

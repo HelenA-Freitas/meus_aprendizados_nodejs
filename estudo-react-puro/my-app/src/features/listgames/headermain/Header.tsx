@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { Box, AppBar, Toolbar, Typography } from "@mui/material";
 import { theme } from "../../login/style";
 import Logout from "./Logout";
 
