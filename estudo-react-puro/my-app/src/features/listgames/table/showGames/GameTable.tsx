@@ -1,7 +1,7 @@
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { theme } from "../../login/style";
+import { theme } from "../../../login/style";
 import ShowGames from "./ShowGames";
 import TableHeader from "./TableHeader";
 

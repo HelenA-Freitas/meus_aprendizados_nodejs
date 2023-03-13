@@ -1,6 +1,6 @@
 import { TableRow, TableCell } from "@mui/material"
-import DeleteGame from "./DeleteGame";
-import EditGame from "./editGame/EditGame";
+import DeleteGame from "../DeleteGame";
+import EditGame from "../editGame/EditGame";
 
 interface Props {
     id: number;

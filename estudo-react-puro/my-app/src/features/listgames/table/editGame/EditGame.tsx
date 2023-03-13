@@ -26,7 +26,7 @@ export default function EditGame({id, title, year, price}:Props){
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >    
-                <EditModal/>
+                <EditModal id={id} titleGame={title} yearGame={year} priceGame={price}/>
             </Modal>
         </>
     )
