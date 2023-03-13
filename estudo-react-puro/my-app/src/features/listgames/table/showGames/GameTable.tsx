@@ -1,7 +1,8 @@
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from "@mui/material";
+import { TableContainer, Paper, Table, TableBody, ThemeProvider } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { theme } from "../../../login/style";
+import InsertGame from "../insertGame/InsertGame";
 import ShowGames from "./ShowGames";
 import TableHeader from "./TableHeader";
 
@@ -30,6 +31,7 @@ export default function GameTable(){
     return(
       <ThemeProvider theme={theme}>
         <TableContainer component={Paper} sx={{my: 5, mx: 'auto', width: 1500}}>
+          <InsertGame/>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHeader/>
             <TableBody>

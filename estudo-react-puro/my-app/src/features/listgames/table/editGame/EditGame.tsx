@@ -18,7 +18,7 @@ export default function EditGame({id, title, year, price}:Props){
     
     return(
         <>
-            <Button type="button" sx={{ backgroundColor: '#FF7F11', color: 'white', m: 1 }} onClick={handleOpen}>
+            <Button type="button" sx={{ backgroundColor: '#FF7F11', color: 'white', m: 1 }} onClick={handleOpen} variant='contained'>
                 <EditSharpIcon />
             </Button>
             <Modal

@@ -40,8 +40,7 @@ function handleDelete(id: number){
 
 export default function DeleteGame({id, title}: Props){
     return(
-        <Button type="button" onClick={() => ConfirmDelete(id, title)}
-            sx={{backgroundColor: 'gray', color:'white'}}>
+        <Button type="button" onClick={() => ConfirmDelete(id, title)} sx={{backgroundColor: 'gray', color:'white'}} variant='contained'>
                 <DeleteSharpIcon/>
         </Button>
     )
