@@ -2,6 +2,7 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import { useState } from "react";
 import EditModal from "./EditModal";
+import { ModalClose } from "@mui/joy";
 
 interface Props{
     id:number;
@@ -26,7 +27,7 @@ export default function EditGame({id, title, year, price}:Props){
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >    
-                <EditModal id={id} titleGame={title} yearGame={year} priceGame={price}/>
+                <EditModal title={title} year={year} price={price} id={id}/>
             </Modal>
         </>
     )

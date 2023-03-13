@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const axiosConfig = {
