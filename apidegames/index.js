@@ -185,6 +185,14 @@ app.post("/auth", async (req, res) => {
     }
 });
 
+app.post("/createuser", async (req, res) => {
+    const { email, password } = req.body;
+
+    const response =  await database('users').insert({'email':email, 'password':password});
+    //console.log(response);
+    return res.sendStatus(200);
+})
+
 
 
 app.listen(45678, () => {

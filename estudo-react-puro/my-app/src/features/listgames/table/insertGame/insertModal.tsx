@@ -1,3 +1,4 @@
+import { ModalClose } from "@mui/joy";
 import { Container, Box, AppBar, Toolbar, Typography, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { createGame } from "./createGame";
@@ -32,6 +33,6 @@ export default function InsertModal(){
                   Criar
                 </Button>
             </Box>
-        </Container>
+        </Container> 
     )
 }

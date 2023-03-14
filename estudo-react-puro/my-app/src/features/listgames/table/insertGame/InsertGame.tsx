@@ -2,6 +2,7 @@ import { Box, Button, Modal } from "@mui/material";
 import { useState } from "react";
 import InsertModal from "./insertModal";
 import AddIcon from '@mui/icons-material/Add';
+import { ModalClose } from "@mui/joy";
 
 
 export default function InsertGame(){
@@ -26,7 +27,7 @@ export default function InsertGame(){
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                aria-describedby="modal-modal-description"   
             >
                 <InsertModal/>                    
             </Modal>
