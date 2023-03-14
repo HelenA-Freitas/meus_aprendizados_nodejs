@@ -188,9 +188,25 @@ app.post("/auth", async (req, res) => {
 app.post("/createuser", async (req, res) => {
     const { email, password } = req.body;
 
-    const response =  await database('users').insert({'email':email, 'password':password});
-    //console.log(response);
-    return res.sendStatus(200);
+    let emailError;
+    let passwordError;
+
+    if(!email || email == " "){
+        emailError = "E-mail inválido!"
+    }
+    
+    if(!password || password.length < 6){
+        passwordError = "Senha inválida!"
+    }
+
+    if(emailError || passwordError){
+        return res.status(400).json({emailError, passwordError});
+
+    }else{
+        const response =  await database('users').insert({'email':email, 'password':password});
+        //console.log(response);
+        return res.sendStatus(200);
+    }
 })
 
 
