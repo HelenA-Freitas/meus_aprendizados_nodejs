@@ -19,6 +19,7 @@ function ConfirmDelete(id: number, title: string){
         title: `Tem certeza que deseja deletar ${title}?`,
         icon: 'warning',
         showCancelButton: true,
+        cancelButtonText: 'Cancelar',
         confirmButtonColor: '#FF7F11',
         cancelButtonColor: 'gray',
         confirmButtonText: 'Sim, delete!',

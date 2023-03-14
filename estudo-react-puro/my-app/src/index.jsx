@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./features/login/login";
 import Main from "./features/listgames/main";
+import MainCreateAccount from "./features/createlogin/MainCreateAccount";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
   {
     path:'/jogos',
     element: <Main/>,
+  },
+  {
+    path:'criar-conta',
+    element: <MainCreateAccount/>
   }
 ]);
 

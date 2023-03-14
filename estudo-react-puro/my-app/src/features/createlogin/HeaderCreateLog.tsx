@@ -1,9 +1,9 @@
 import { Box, AppBar, Toolbar, Typography } from "@mui/material";
-import CreateAccount from "./CreateAccountPage";
+import CreateAccount from "../login/headerlogin/CreateAccountPage";
 
-export default function HeaderLogin(){
+
+export default function HeaderCreateLog(){
     return(
-        
         <Box
         sx={{ flexGrow: 2}}>
             <AppBar position="static">
@@ -15,7 +15,5 @@ export default function HeaderLogin(){
                 </Toolbar>
             </AppBar>
         </Box>
-        
-
     )
 }
