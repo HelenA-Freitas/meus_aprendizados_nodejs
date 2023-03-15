@@ -6,7 +6,7 @@ type IFormInputProps = {
     name: string;
   } & TextFieldProps;
 
-export const UserInput : FC<IFormInputProps> = ({name, ...otherProps}) => {
+export const FormInput : FC<IFormInputProps> = ({name, ...otherProps}) => {
     const {
         control,
         formState: { errors },

@@ -1,7 +1,6 @@
 import { Container, Box, Typography, FormControlLabel, Checkbox, Button } from "@mui/material";
 import { useEffect } from "react";
-import {PasswordInput} from "./PasswordInput";
-import {UserInput} from "./UserInput";
+import {FormInput} from "./FormInput";
 import { login } from "../auth";
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -64,8 +63,8 @@ export const FormLogin = () => {
             </Typography>
             <FormProvider {...methods}>
               <Box component="form" sx={{ mt: 1 }} noValidate autoComplete="off" >
-                  <UserInput required fullWidth label='E-mail' {...register('email')} />
-                  <PasswordInput required fullWidth label='Senha' type='password' {...register('password')}/>
+                  <FormInput required fullWidth label='E-mail' {...register('email')} />
+                  <FormInput required fullWidth type='password' label='Senha' {...register('password')} />
                   <FormControlLabel control={<Checkbox value="remember" />} label="Lembre de mim" />
                   <Button fullWidth onClick={handleSubmit(onSubmitHandler)} variant="contained" color='secondary' sx={{mt: 3, mb: 2, backgroundColor: '#FF7F11'}}>
                     Entrar
