@@ -1,18 +1,50 @@
 import { Container, Box, Typography, FormControlLabel, Checkbox, Button } from "@mui/material";
-import { SetStateAction, useState } from "react";
+import { useEffect } from "react";
 import {PasswordInput} from "./PasswordInput";
 import {UserInput} from "./UserInput";
 import { login } from "../auth";
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { object, string, TypeOf } from "zod";
 
+const registerSchema = object({
+  email: string().nonempty('Por favor, informe seu e-mail!').email('E-mail inválido!'),
+  password: string()
+    .nonempty('Por favor, informe sua senha!')
+    .min(4, 'A senha precisa ter mais de 4 caracteres.')
+    .max(32, 'A senha precisa ter menos de 32 caracteres.'),
+});
 
-export default function FormLogin(){
+type ResgisterInput = TypeOf<typeof registerSchema>;
 
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+export const FormLogin = () => {
+  
+  const methods = useForm<ResgisterInput>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      email:'',
+      password:''
+    }
+  });
 
-  const handleLogin = async () => {
-    await login({email, password});
-  }
+  const {
+    reset,
+    handleSubmit,
+    register,
+    formState: { isSubmitSuccessful, errors },
+  } = methods;
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset()
+    }
+  }, [isSubmitSuccessful]);
+
+  const onSubmitHandler: SubmitHandler<ResgisterInput> = (values) => {
+    const {email, password} = values;
+    login({email, password});
+  };
+  console.log(errors);
 
     return(
         <Container component="main" maxWidth="xs">
@@ -30,26 +62,16 @@ export default function FormLogin(){
             <Typography component="h1" variant="h5">
               Login
             </Typography>
-            <Box component="form" sx={{ mt: 1 }}>
-                <UserInput onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}/>
-                <PasswordInput onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}/>
-                <FormControlLabel control={<Checkbox value="remember" />} label="Lembre de mim" />
-                <Button
-                type="button"
-                fullWidth
-                variant="contained"
-                color='secondary'
-                onClick={() => handleLogin()}
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                  backgroundColor: '#FF7F11'
-                }}
-              >
-                  Entrar
-                </Button>
-                {/* <AcessButton action={() => console.log('click')}/> */}
-            </Box>
+            <FormProvider {...methods}>
+              <Box component="form" sx={{ mt: 1 }} noValidate autoComplete="off" >
+                  <UserInput required fullWidth label='E-mail' {...register('email')} />
+                  <PasswordInput required fullWidth label='Senha' type='password' {...register('password')}/>
+                  <FormControlLabel control={<Checkbox value="remember" />} label="Lembre de mim" />
+                  <Button fullWidth onClick={handleSubmit(onSubmitHandler)} variant="contained" color='secondary' sx={{mt: 3, mb: 2, backgroundColor: '#FF7F11'}}>
+                    Entrar
+                  </Button>
+              </Box>
+            </FormProvider>
           </Box>
         </Container>
     )

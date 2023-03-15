@@ -20,8 +20,8 @@ export default function FormCreateAccount(){
               Criar conta
             </Typography>
             <Box component="form" sx={{ mt: 1 }}>
-                <UserInput onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}/>
-                <PasswordInput onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}/>
+                {/* <UserInput onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}/>
+                <PasswordInput onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}/> */}
                 <Button type="button" fullWidth
                 variant="contained"
                 color='secondary'

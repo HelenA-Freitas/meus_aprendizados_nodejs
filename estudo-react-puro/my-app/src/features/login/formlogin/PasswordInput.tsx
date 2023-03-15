@@ -1,16 +1,28 @@
-import TextField from "@mui/material/TextField/TextField";
+import TextField, { TextFieldProps } from "@mui/material/TextField/TextField";
+import { FC } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 
-export const PasswordInput = (props: any) => {
+type IFormInputProps = {
+    name: string;
+  } & TextFieldProps;
+  
+export const PasswordInput: FC<IFormInputProps> = ({name, ...otherProps}) => {
+    const {
+        control,
+        formState: { errors },
+      } = useFormContext();
+
     return(
-        <TextField {...props}
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Senha"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                sx={{ backgroundColor: '#fff' }} />
-    )
+        <Controller control={control} name={name} defaultValue='' render={({field}) => (
+            <TextField
+            {...otherProps}
+            {...field}
+            error={!!errors[name]}
+            helperText={errors[name]?.message?.toString() ?? ''}
+            sx={{ backgroundColor: '#fff' }} 
+            />
+        )}
+        />
+
+    );
 }
