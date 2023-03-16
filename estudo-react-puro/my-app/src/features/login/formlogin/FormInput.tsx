@@ -19,7 +19,7 @@ export const FormInput : FC<IFormInputProps> = ({name, ...otherProps}) => {
             {...field}
             error={!!errors[name]}
             helperText={errors[name]?.message?.toString() ?? ''}
-            sx={{ backgroundColor: '#fff', mb: 2 }} 
+            sx={{ backgroundColor: '#fff', mb: 2, mt: 2}} 
             />
         )}
         />

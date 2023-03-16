@@ -1,7 +1,7 @@
 import { Container, Box, Typography, FormControlLabel, Checkbox, Button } from "@mui/material";
 import { useEffect } from "react";
 import {FormInput} from "./FormInput";
-import { login } from "../auth";
+import { login } from "./auth";
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { object, string, TypeOf } from "zod";

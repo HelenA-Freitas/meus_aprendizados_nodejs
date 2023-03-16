@@ -9,16 +9,16 @@ const axiosConfig = {
 
 interface Props{
     id:number;
-    titleGame:string;
-    yearGame:number;
-    priceGame:number;
+    title:string;
+    year:number | string;
+    price:number | string;
 }
 
-export const update = ({id, titleGame, yearGame, priceGame}: Props) => {
+export const update = ({id, title, year, price}: Props) => {
     const game = {
-        title: titleGame,
-        year: yearGame,
-        price: priceGame
+        title: title,
+        year: year,
+        price: price
     }
 
     axios.put("http://localhost:45678/game/" + id, game, axiosConfig).then(response => {
