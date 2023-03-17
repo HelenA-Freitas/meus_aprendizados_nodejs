@@ -1,10 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AppBar, Box, Button, TextField, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import { useState, SetStateAction, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { number, object, string, TypeOf } from "zod";
-import { createAccount } from "../../../login/formCreateAccount/CreateAccout";
+import { coerce, number, object, string, TypeOf } from "zod";
 import { FormInput } from "../../../login/formlogin/FormInput";
 import { update } from "./UpdateGame";
 
@@ -12,13 +11,11 @@ const date = new Date();
 
 const registerSchema = object({
     title: string().nonempty('Por favor, informe o nome'),
-    price: string().nonempty('Por favor, informe o preço')
-        .or(number()
-        .positive('O preço precisa ser positivo')),
-    year: string().nonempty('Por favor, informe o ano')
-        .or(number()
+    price: coerce.number()
+        .positive('O preço precisa ser positivo e maior que zero'),
+    year: coerce.number()
         .gte(1958, {message:'O ano precisa ser maior que 1958'})
-        .lte(date.getFullYear(), {message:'O ano precisa ser menor que ou igual ao atual'}))
+        .lte(date.getFullYear(), {message:'O ano precisa ser menor que ou igual ao atual'})
   });
   
   type ResgisterInput = TypeOf<typeof registerSchema>;
@@ -33,6 +30,7 @@ const registerSchema = object({
 
 
 export default function EditModal({id, titleGame, priceGame, yearGame}: Props){
+
     const methods = useForm<ResgisterInput>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
@@ -41,6 +39,7 @@ export default function EditModal({id, titleGame, priceGame, yearGame}: Props){
           price: priceGame
         }
       });
+    
     
       const {
         reset,
@@ -75,9 +74,15 @@ export default function EditModal({id, titleGame, priceGame, yearGame}: Props){
             </Box>
             <FormProvider {...methods}>
                 <Box component="form" sx={{ mt: 1 }} noValidate autoComplete="off">
+                    {/* <Typography variant='subtitle2' sx={{mt:3, mb:1, color:'red', textAlign:'justify'}}>
+                        O ano precisa estar entre 1958 e o ano atual.
+                    </Typography> 
+                    <Typography variant='subtitle2' sx={{ mb:2, color:'red'}}>
+                        O preço precisa ser positivo.
+                    </Typography>  */}
                     <FormInput required fullWidth label='Título' {...register('title')} />
-                    <FormInput required fullWidth label='Ano' type='number' {...register('year')}/>
-                    <FormInput required fullWidth label='Preço' type='number' {...register('price')} />
+                    <FormInput required fullWidth label='Ano' type='number' InputProps={{inputProps: {min: 1958, max: date.getFullYear()}}} {...register('year')} />
+                    <FormInput required fullWidth label='Preço' type='number' InputProps={{inputProps: {min: 0 }}} {...register('price')} />
                     <Button type="button" fullWidth variant="contained" color='secondary' onClick={handleSubmit(onSubmitHandler)} sx={{mt: 3, mb: 2, backgroundColor: '#FF7F11', color: 'white'}}>
                     Editar
                     </Button>

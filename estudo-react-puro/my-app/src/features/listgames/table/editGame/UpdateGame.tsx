@@ -10,8 +10,8 @@ const axiosConfig = {
 interface Props{
     id:number;
     title:string;
-    year:number | string;
-    price:number | string;
+    year:number;
+    price:number;
 }
 
 export const update = ({id, title, year, price}: Props) => {
