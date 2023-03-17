@@ -13,7 +13,7 @@ const registerSchema = object({
     price: coerce.number()
         .positive('O preço precisa ser positivo e maior que zero'),
     year: coerce.number()
-        .gte(1958, {message:'O ano precisa ser maior que 1958'})
+        .gte(1958, {message:'O ano precisa ser maior ou igual que 1958'})
         .lte(date.getFullYear(), {message:'O ano precisa ser menor que ou igual ao atual'})
   });
   
