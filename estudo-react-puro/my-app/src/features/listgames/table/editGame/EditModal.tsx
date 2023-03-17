@@ -3,7 +3,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { coerce, number, object, string, TypeOf } from "zod";
+import { coerce, object, string, TypeOf } from "zod";
 import { FormInput } from "../../../login/formlogin/FormInput";
 import { update } from "./UpdateGame";
 
@@ -27,8 +27,6 @@ const registerSchema = object({
     yearGame: number
   }
   
-
-
 export default function EditModal({id, titleGame, priceGame, yearGame}: Props){
 
     const methods = useForm<ResgisterInput>({
@@ -74,12 +72,6 @@ export default function EditModal({id, titleGame, priceGame, yearGame}: Props){
             </Box>
             <FormProvider {...methods}>
                 <Box component="form" sx={{ mt: 1 }} noValidate autoComplete="off">
-                    {/* <Typography variant='subtitle2' sx={{mt:3, mb:1, color:'red', textAlign:'justify'}}>
-                        O ano precisa estar entre 1958 e o ano atual.
-                    </Typography> 
-                    <Typography variant='subtitle2' sx={{ mb:2, color:'red'}}>
-                        O preço precisa ser positivo.
-                    </Typography>  */}
                     <FormInput required fullWidth label='Título' {...register('title')} />
                     <FormInput required fullWidth label='Ano' type='number' InputProps={{inputProps: {min: 1958, max: date.getFullYear()}}} {...register('year')} />
                     <FormInput required fullWidth label='Preço' type='number' InputProps={{inputProps: {min: 0 }}} {...register('price')} />

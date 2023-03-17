@@ -1,17 +1,54 @@
-import { ModalClose } from "@mui/joy";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Container, Box, AppBar, Toolbar, Typography, Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { coerce, object, string, TypeOf } from "zod";
+import { FormInput } from "../../../login/formlogin/FormInput";
 import { createGame } from "./createGame";
 
+const date = new Date();
+
+const registerSchema = object({
+    title: string().nonempty('Por favor, informe o nome'),
+    price: coerce.number()
+        .positive('O preço precisa ser positivo e maior que zero'),
+    year: coerce.number()
+        .gte(1958, {message:'O ano precisa ser maior que 1958'})
+        .lte(date.getFullYear(), {message:'O ano precisa ser menor que ou igual ao atual'})
+  });
+  
+  type ResgisterInput = TypeOf<typeof registerSchema>;
 
 export default function InsertModal(){
-    const [title, setTitle] = useState('');
-    const [year, setYear] = useState(); 
-    const [price, setPrice] = useState();
 
-    const handleCreateGame = async () => {
+    const methods = useForm<ResgisterInput>({
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+          title: '',
+          year: 0,
+          price: 0
+        }
+      });
+    
+    
+      const {
+        reset,
+        handleSubmit,
+        register,
+        formState: { isSubmitSuccessful, errors },
+      } = methods;
+    
+      useEffect(() => {
+        if (isSubmitSuccessful) {
+          reset()
+        }
+      }, [isSubmitSuccessful]);
+    
+      const onSubmitHandler: SubmitHandler<ResgisterInput> = (values) => {
+        const {title, year, price} = values;
         createGame({title, year, price});
-    }
+      };
+      console.log(errors);
 
     return(
         <Container sx={{  position: 'absolute' as 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, borderRadius: 2, bgcolor: 'white',
@@ -25,14 +62,16 @@ export default function InsertModal(){
                     </Toolbar>
                 </AppBar>
             </Box>
-            <Box>
-                <TextField margin="normal" required fullWidth label='Título' name="title" id="title" autoComplete="title" onChange={(e) => setTitle(e.target.value)} sx={{ backgroundColor: '#fff' }} />
-                <TextField margin="normal" required fullWidth label='Ano' name="year" id="year" autoComplete="year" onChange={(e:any) => setYear(e.target.value)} sx={{ backgroundColor: '#fff' }}/>
-                <TextField margin="normal" required fullWidth label='Preço' name="price" id="price" autoComplete="price" onChange={(e:any) => setPrice(e.target.value)} sx={{ backgroundColor: '#fff' }} />
-                <Button type="button" fullWidth variant="contained" color='secondary' sx={{mt: 3, mb: 2, backgroundColor: '#FF7F11', color: 'white'}} onClick={() => handleCreateGame()}>
-                  Criar
-                </Button>
-            </Box>
+            <FormProvider {...methods}>
+                <Box component="form" sx={{ mt: 1 }} noValidate autoComplete="off">
+                    <FormInput required fullWidth label='Título' {...register('title')} />
+                    <FormInput required fullWidth label='Ano' type='number' InputProps={{inputProps: {min: 1958, max: date.getFullYear()}}} {...register('year')} />
+                    <FormInput required fullWidth label='Preço' type='number' InputProps={{inputProps: {min: 0 }}} {...register('price')} />
+                    <Button type="button" fullWidth variant="contained" color='secondary' sx={{mt: 3, mb: 2, backgroundColor: '#FF7F11', color: 'white'}} onClick={handleSubmit(onSubmitHandler)}>
+                    Criar
+                    </Button>
+                </Box>
+            </FormProvider>
         </Container> 
     )
 }
